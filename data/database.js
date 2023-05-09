@@ -189,6 +189,39 @@ const databaseGraphQL = {
       });
     } catch (error) {}
   },
+  // <------------------Delete---------------------->
+  deleteDepartment: (_, { id }) => {
+    return models.Department.destroy({
+      where: { id: id },
+    }).then((result) => {
+      return result === 1;
+    });
+  },
+
+  deleteRequest: (_, { id }) => {
+    return models.Request.destroy({
+      where: { id: id },
+      cascade: true,
+    }).then((result) => {
+      return result === 1;
+    });
+  },
+  deleteUser: (_, { id }) => {
+    return models.Request.findAll({
+      where: {
+        userId: id,
+      },
+    }).then((requests) => {
+      requests.forEach((request) => {
+        request.destroy();
+      });
+      models.User.destroy({
+        where: {
+          id: id,
+        },
+      });
+    });
+  },
 };
 
 module.exports = databaseGraphQL;

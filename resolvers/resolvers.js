@@ -57,6 +57,8 @@ const resolvers = {
     userId: async (parent, args, context) => {
       return await context.databaseGraphQL.getUserId();
     },
+    
+    
   },
   Department: {
     users: async (parent, args, context) => {
@@ -261,6 +263,15 @@ const resolvers = {
         birthday,
         phoneNumber,
       });
+    },
+    deleteDepartment: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteDepartment(_, { id });
+    },
+    deleteRequest: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteRequest(_, { id });
+    },
+    deleteUser: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteUser(_, { id });
     },
   },
 };

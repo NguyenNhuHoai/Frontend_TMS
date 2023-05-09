@@ -102,6 +102,7 @@ const typeDefs = gql`
     updatedDate: Date
     birthday: Date!
     phoneNumber: String
+    requests: [Request]
   }
   #Query
   type Query {
@@ -205,6 +206,11 @@ const typeDefs = gql`
       birthday: Date!
       phoneNumber: String!
     ): User
+
+    #Delete
+    deleteDepartment(id: ID!): Boolean
+    deleteRequest(id: ID!): Boolean
+    deleteUser(id: ID!): Boolean
   }
 `;
 
