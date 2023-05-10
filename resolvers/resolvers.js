@@ -262,21 +262,29 @@ const resolvers = {
         phoneNumber,
       });
     },
-    deleteDepartment: async (_, { id }, context) => {
-      return await context.databaseGraphQL.deleteDepartment(_, { id });
+    deleteUser: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteUser(_, { id })
     },
     deleteRequest: async (_, { id }, context) => {
       return await context.databaseGraphQL.deleteRequest(_, { id });
     },
-    deleteUser: async (_, { id }, context) => {
-      return await context.databaseGraphQL.deleteUser(_, { id });
+    deleteDepartment: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteDepartment(_, { id });
     },
-    updateDepartment: async (_, { id, name, updatedBy }, context) => {
-      return await context.databaseGraphQL.updateDepartment(_, {
-        id,
-        name,
-        updatedBy,
-      });
+    deletePartialDay: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deletePartialDay(_, { id });
+    },
+    deleteStatus: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteStatus(_, { id });
+    },
+    deleteSpecification: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteSpecification(_, { id });
+    },
+    deleteRequestType: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteRequestType(_, { id });
+    },
+    deleteRequestReason: async (_, { id }, context) => {
+      return await context.databaseGraphQL.deleteRequestReason(_, { id });
     },
     updatePartialDay: async (_, { id, name, updatedBy }, context) => {
       return await context.databaseGraphQL.updatePartialDay(_, {

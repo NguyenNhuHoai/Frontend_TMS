@@ -191,6 +191,86 @@ const databaseGraphQL = {
     } catch (error) {}
   },
   // <------------------Delete---------------------->
+  deletePartialDay: (_, { id }) => {
+    return models.Request.findAll({
+      where: {
+        partialDayId: id,
+      },
+    }).then((requests) => {
+      requests.forEach((request) => {
+        request.destroy();
+      });
+      models.PartialDay.destroy({
+        where: {
+          id: id,
+        },
+      });
+    });
+  },
+  deleteRequestReason:(_, { id }) => {
+    return models.Request.findAll({
+      where: {
+        requestReasonId: id,
+      },
+    }).then((requests) => {
+      requests.forEach((request) => {
+        request.destroy();
+      });
+      models.RequestReason.destroy({
+        where: {
+          id: id,
+        },
+      });
+    });
+  },
+  deleteRequestType: (_, { id }) => {
+    return models.Request.findAll({
+      where: {
+        requestTypeId: id,
+      },
+    }).then((requests) => {
+      requests.forEach((request) => {
+        request.destroy();
+      });
+      models.RequestType.destroy({
+        where: {
+          id: id,
+        },
+      });
+    });
+  },
+  deleteStatus: (_, { id }) => {
+    return models.Request.findAll({
+      where: {
+        statusId: id,
+      },
+    }).then((users) => {
+      users.forEach((users) => {
+        users.destroy();
+      });
+      models.Status.destroy({
+        where: {
+          id: id,
+        },
+      });
+    });
+  },
+  deleteSpecification: (_, { id }) => {
+    return models.User.findAll({
+      where: {
+        specificationI: id,
+      },
+    }).then((requests) => {
+      requests.forEach((request) => {
+        request.destroy();
+      });
+      models.Specification.destroy({
+        where: {
+          id: id,
+        },
+      });
+    });
+  },
   deleteDepartment: (_, { id }) => {
     return models.Department.destroy({
       where: { id: id },

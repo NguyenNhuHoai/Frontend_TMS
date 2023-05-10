@@ -208,9 +208,14 @@ const typeDefs = gql`
     ): User
 
     #Delete
-    deleteDepartment(id: ID!): Boolean
-    deleteRequest(id: ID!): Boolean
     deleteUser(id: ID!): Boolean
+    deleteRequest(id: ID!): Boolean
+    deleteDepartment(id: ID!): Boolean
+    deletePartialDay(id: ID!): Boolean
+    deleteStatus(id: ID!): Boolean
+    deleteSpecification(id: ID!): Boolean
+    deleteRequestType(id: ID!): Boolean
+    deleteRequestReason(id: ID!): Boolean
 
     #update
     updateDepartment(id: ID!, name: String, updatedBy: String!): Department
