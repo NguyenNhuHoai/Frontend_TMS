@@ -211,6 +211,57 @@ const typeDefs = gql`
     deleteDepartment(id: ID!): Boolean
     deleteRequest(id: ID!): Boolean
     deleteUser(id: ID!): Boolean
+
+    #update
+    updateDepartment(id: ID!, name: String, updatedBy: String!): Department
+    updatePartialDay(id: Int!, name: String, updatedBy: String!): PartialDay
+    updateRequest(
+      id: ID!
+      userId: ID
+      requestTypeId: ID
+      requestReasonId: ID
+      partialDayId: ID
+      statusId: ID
+      supervisor: ID
+      approver: ID
+      informTo: ID
+      detailReason: String
+      comment: String
+      updatedBy: String!
+      expectedDate: Date
+      startDate: Date
+      endDate: Date
+    ): Request
+
+    updateRequestReason(
+      id: ID!
+      requestTypeId: ID
+      name: String
+      updatedBy: String!
+    ): RequestReason
+
+    updateRequestType(
+      id: ID!
+      name: String
+      description: String
+      updatedBy: String!
+    ): RequestType
+
+    updateSpecification(id: ID!, name: String, updatedBy: String): Specification
+    updateStatus(id: ID!, name: String, updatedBy: String!): Status
+    updateUser(
+      id: ID!
+      departmentId: ID
+      specificationId: ID
+      supervisor: ID
+      userCode: String
+      email: String
+      userName: String
+      address: String
+      updatedBy: String
+      birthday: Date
+      phoneNumber: String
+    ): User
   }
 `;
 

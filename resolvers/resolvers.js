@@ -57,8 +57,6 @@ const resolvers = {
     userId: async (parent, args, context) => {
       return await context.databaseGraphQL.getUserId();
     },
-    
-    
   },
   Department: {
     users: async (parent, args, context) => {
@@ -272,6 +270,128 @@ const resolvers = {
     },
     deleteUser: async (_, { id }, context) => {
       return await context.databaseGraphQL.deleteUser(_, { id });
+    },
+    updateDepartment: async (_, { id, name, updatedBy }, context) => {
+      return await context.databaseGraphQL.updateDepartment(_, {
+        id,
+        name,
+        updatedBy,
+      });
+    },
+    updatePartialDay: async (_, { id, name, updatedBy }, context) => {
+      return await context.databaseGraphQL.updatePartialDay(_, {
+        id,
+        name,
+        updatedBy,
+      });
+    },
+    updateRequest: async (
+      _,
+      {
+        id,
+        userId,
+        requestTypeId,
+        requestReasonId,
+        partialDayId,
+        statusId,
+        supervisor,
+        approver,
+        informTo,
+        detailReason,
+        comment,
+        updatedBy,
+        expectedDate,
+        startDate,
+        endDate,
+      },
+      context
+    ) => {
+      return await context.databaseGraphQL.updateRequest(_, {
+        id,
+        userId,
+        requestTypeId,
+        requestReasonId,
+        partialDayId,
+        statusId,
+        supervisor,
+        approver,
+        informTo,
+        detailReason,
+        comment,
+        updatedBy,
+        expectedDate,
+        startDate,
+        endDate,
+      });
+    },
+    updateRequestReason: async (
+      _,
+      { id, requestTypeId, name, updatedBy },
+      context
+    ) => {
+      return await context.databaseGraphQL.updateRequestReason(_, {
+        id,
+        requestTypeId,
+        name,
+        updatedBy,
+      });
+    },
+    updateRequestType: async (
+      _,
+      { id, name, description, updatedBy },
+      context
+    ) => {
+      return await context.databaseGraphQL.updateRequestType(_, {
+        id,
+        name,
+        description,
+        updatedBy,
+      });
+    },
+    updateSpecification: async (_, { id, name, updatedBy }, context) => {
+      return await context.databaseGraphQL.updateSpecification(_, {
+        id,
+        name,
+        updatedBy,
+      });
+    },
+    updateStatus: async (_, { id, name, updatedBy }, context) => {
+      return await context.databaseGraphQL.updateStatus(_, {
+        id,
+        name,
+        updatedBy,
+      });
+    },
+    updateUser: async (
+      _,
+      {
+        id,
+        departmentId,
+        specificationId,
+        supervisor,
+        userCode,
+        email,
+        userName,
+        address,
+        updatedBy,
+        birthday,
+        phoneNumber,
+      },
+      context
+    ) => {
+      return await context.databaseGraphQL.updateUser(_, {
+        id,
+        departmentId,
+        specificationId,
+        supervisor,
+        userCode,
+        email,
+        userName,
+        address,
+        updatedBy,
+        birthday,
+        phoneNumber,
+      });
     },
   },
 };

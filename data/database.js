@@ -1,5 +1,6 @@
 const models = require("../models/models");
 const Departement = require("../models/Department");
+const { where } = require("sequelize");
 const databaseGraphQL = {
   // Methods GET
   // <------Departments---------->
@@ -221,6 +222,131 @@ const databaseGraphQL = {
         },
       });
     });
+  },
+  updateDepartment: async (_, { id, name, updatedBy }) => {
+    await models.Department.update({ name, updatedBy }, { where: { id } });
+    const department = await models.Department.findByPk(id);
+    return department;
+  },
+  updatePartialDay: async (_, { id, name, updatedBy }) => {
+    await models.PartialDay.update({ name, updatedBy }, { where: { id } });
+    const partialDay = await models.PartialDay.findByPk(id);
+    return partialDay;
+  },
+  updateRequest: async (
+    _,
+    {
+      id,
+      userId,
+      requestTypeId,
+      requestReasonId,
+      partialDayId,
+      statusId,
+      supervisor,
+      approver,
+      informTo,
+      detailReason,
+      comment,
+      updatedBy,
+      expectedDate,
+      startDate,
+      endDate,
+    }
+  ) => {
+    await models.Request.update(
+      {
+        userId,
+        requestTypeId,
+        requestReasonId,
+        partialDayId,
+        statusId,
+        supervisor,
+        approver,
+        informTo,
+        detailReason,
+        comment,
+        updatedBy,
+        expectedDate,
+        startDate,
+        endDate,
+      },
+      { where: { id } }
+    );
+    const request = await models.Request.findByPk(id);
+    return request;
+  },
+  updateRequestReason: async (_, { id, requestReasonId, name, updatedBy }) => {
+    await models.RequestReason.update(
+      { requestReasonId, name, updatedBy },
+      { where: { id } }
+    );
+    const requestReason = await models.RequestReason.findByPk(id);
+    return requestReason;
+  },
+  updateRequestType: async (_, { id, name, description, updatedBy }) => {
+    await models.RequestType.update(
+      { name, description, updatedBy },
+      { where: { id } }
+    );
+    const requestType = await models.RequestType.findByPk(id);
+    return requestType;
+  },
+
+  updateSpecification: async (_, { id, name, updatedBy }) => {
+    await models.Specification.update(
+      {
+        name,
+        updatedBy,
+      },
+      { where: { id } }
+    );
+    const specification = await models.Specification.findByPk(id);
+    return specification;
+  },
+  updateStatus: async (_, { id, name, updatedBy }) => {
+    await models.Status.update(
+      {
+        name,
+        updatedBy,
+      },
+      { where: { id } }
+    );
+    const status = await models.Status.findByPk(id);
+    return status;
+  },
+  updateUser: async (
+    _,
+    {
+      id,
+      departmentId,
+      specificationId,
+      supervisor,
+      userCode,
+      email,
+      userName,
+      address,
+      updatedBy,
+      birthday,
+      phoneNumber,
+    }
+  ) => {
+    await models.User.update(
+      {
+        departmentId,
+        specificationId,
+        supervisor,
+        userCode,
+        email,
+        userName,
+        address,
+        updatedBy,
+        birthday,
+        phoneNumber,
+      },
+      { where: { id } }
+    );
+    const user = models.User.findByPk(id);
+    return user;
   },
 };
 
