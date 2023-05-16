@@ -37,8 +37,8 @@ const typeDefs = gql`
     createdBy: String!
     updatedBy: String!
     expectedDate: String!
-    startDate: String!
-    endDate: String!
+    startDate: Date!
+    endDate: Date!
     createdDate: String!
     updatedDate: String!
   }
