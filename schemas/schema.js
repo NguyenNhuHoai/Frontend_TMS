@@ -22,16 +22,17 @@ const typeDefs = gql`
     updatedDate: String!
     requests: [Request]
   }
+
   type Request {
     id: ID!
     userId: User!
-    requestTypeId: RequestType!
-    requestReasonId: RequestReason!
-    partialDayId: PartialDay!
-    statusId: Status!
-    supervisor: ID!
-    approver: ID!
-    informTo: ID!
+    requestType: RequestType!
+    requestReason: RequestReason!
+    partialDay: PartialDay!
+    status: Status!
+    supervisor: User!
+    approver: User!
+    informTo: User!
     detailReason: String
     comment: String
     createdBy: String!
@@ -39,18 +40,18 @@ const typeDefs = gql`
     expectedDate: String!
     startDate: Date!
     endDate: Date!
-    createdDate: String!
-    updatedDate: String!
+    createdDate: Date!
+    updatedDate: Date!
   }
   #RequestReason
   type RequestReason {
     id: ID!
-    requestTypeId: RequestType!
+    requestType: RequestType!
     name: String!
     createdBy: String!
     updatedBy: String!
-    createdDate: String!
-    updatedDate: String!
+    createdDate: Date!
+    updatedDate: Date!
     requests: [Request]
   }
 
@@ -61,8 +62,8 @@ const typeDefs = gql`
     description: String
     createdBy: String!
     updatedBy: String!
-    createdDate: String!
-    updatedDate: String!
+    createdDate: Date!
+    updatedDate: Date!
     requestReasons: [RequestReason]
   }
 
@@ -72,8 +73,8 @@ const typeDefs = gql`
     name: String!
     createdBy: String!
     updatedBy: String!
-    createdDate: String
-    updatedDate: String
+    createdDate: Date
+    updatedDate: Date
     users: [User]
   }
   #Status
@@ -82,22 +83,22 @@ const typeDefs = gql`
     name: String!
     createdBy: String!
     updatedBy: String!
-    createdDate: String
-    updatedDate: String
+    createdDate: Date
+    updatedDate: Date
     displayOrder: Int!
   }
   # User
   type User {
     id: ID!
-    departmentId: Department!
-    specificationId: Specification!
+    department: Department!
+    specification: Specification!
     supervisor: ID
     userCode: String
     email: String!
-    userName: String!
+    userName: String
     address: String
-    createdBy: String!
-    updatedBy: String!
+    createdBy: Date!
+    updatedBy: Date!
     createdDate: Date
     updatedDate: Date
     birthday: Date!
@@ -132,12 +133,6 @@ const typeDefs = gql`
     userId(id: ID!): User
   }
 
-  # input PartialDayInput {
-  #   name: String!
-  #   createdBy: String!
-  #   updatedBy: String!
-  # }
-
   #Mutation
   type Mutation {
     #createDepartment
@@ -166,6 +161,7 @@ const typeDefs = gql`
       createdDate: Date
       updatedDate: Date
     ): Request
+
     createRequestReason(
       requestTypeId: ID!
       name: String!

@@ -73,28 +73,37 @@ const resolvers = {
     },
   },
   Request: {
-    requestTypeId: async (parent, args, context) => {
+    requestType: async (parent, args, context) => {
       return await context.databaseGraphQL.getRequestTypeId(
         parent.requestTypeId
       );
     },
-    requestReasonId: async (parent, args, context) => {
+    requestReason: async (parent, args, context) => {
       return await context.databaseGraphQL.getRequestReasonId(
         parent.requestReasonId
       );
     },
-    partialDayId: async (parent, args, context) => {
+    partialDay: async (parent, args, context) => {
       return await context.databaseGraphQL.getPartialDayId(parent.partialDayId);
     },
     userId: async (parent, args, context) => {
       return await context.databaseGraphQL.getUserId(parent.userId);
     },
-    statusId: async (parent, args, context) => {
+    status: async (parent, args, context) => {
       return await context.databaseGraphQL.getStatusId(parent.statusId);
+    },
+    approver: async (parent, args, context) => {
+      return await context.databaseGraphQL.getUserId(parent.approver);
+    },
+    supervisor: async (parent, args, context) => {
+      return await context.databaseGraphQL.getUserId(parent.supervisor);
+    },
+    informTo: async (parent, args, context) => {
+      return await context.databaseGraphQL.getUserId(parent.informTo);
     },
   },
   RequestReason: {
-    requestTypeId: async (parent, args, context) => {
+    requestType: async (parent, args, context) => {
       return await context.databaseGraphQL.getRequestTypeId(
         parent.requestTypeId
       );
@@ -121,12 +130,12 @@ const resolvers = {
     },
   },
   User: {
-    departmentId: async (parent, args, context) => {
+    department: async (parent, args, context) => {
       return await context.databaseGraphQL.getDepartmentsId(
         parent.departmentId
       );
     },
-    specificationId: async (parent, args, context) => {
+    specification: async (parent, args, context) => {
       return await context.databaseGraphQL.getSpecificationId(
         parent.specificationId
       );
