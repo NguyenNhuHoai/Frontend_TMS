@@ -114,7 +114,7 @@ const typeDefs = gql`
     partialDays: [PartialDay!]!
     partialDayId(id: Int!): PartialDay
     #resquest
-    requests: [Request!]!
+    requests(pageSize: Int, pageNumber: Int): [Request!]!
     requestById(id: ID!): Request
     #requestReasons
     requestReasons: [RequestReason!]!

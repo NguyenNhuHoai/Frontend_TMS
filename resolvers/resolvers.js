@@ -17,7 +17,9 @@ const resolvers = {
     },
     // request
     requests: async (parent, args, context) => {
-      return await context.databaseGraphQL.getAllRequests();
+      return await context.databaseGraphQL.getAllRequests({
+        args,
+      });
     },
     requestById: async (parent, args, context) => {
       return await context.databaseGraphQL.getRequestId(args.id);

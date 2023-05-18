@@ -10,7 +10,20 @@ const databaseGraphQL = {
   getAllPartialDays: async () => await models.PartialDay.findAll(),
   getPartialDayId: async (id) => await models.PartialDay.findByPk(id),
   // <------Request----------->
-  getAllRequests: async () => await models.Request.findAll(),
+  getAllRequests: async (params) => {
+    const { rows, count } = await models.Request.findAndCountAll({
+      limit: params.args.pageSize,
+      offset: (params.args.pageNumber - 1) * params.args.pageSize,
+    });
+
+    let totalPages = Math.ceil(count / params.args.pageSize);
+    let currentPage = params.args.pageNumber;
+    return {
+      rows,
+      totalPages,
+      currentPage,
+    };
+  },
   getRequestId: async (id) => await models.Request.findByPk(id),
   // <------RequestReason----------->
   getAllRequestReasons: async () => await models.RequestReason.findAll(),
@@ -207,7 +220,7 @@ const databaseGraphQL = {
       });
     });
   },
-  deleteRequestReason:(_, { id }) => {
+  deleteRequestReason: (_, { id }) => {
     return models.Request.findAll({
       where: {
         requestReasonId: id,
