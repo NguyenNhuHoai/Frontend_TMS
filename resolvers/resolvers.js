@@ -17,9 +17,22 @@ const resolvers = {
     },
     // request
     requests: async (parent, args, context) => {
-      return await context.databaseGraphQL.getAllRequests({
-        args,
+      return await context.databaseGraphQL.getAllRequests();
+    },
+    paginatedRequests: async (_, { pageNumber, pageSize }) => {
+      const offset = (pageNumber - 1) * pageSize;
+      const { count, rows } = await models.Request.findAndCountAll({
+        limit: pageSize,
+        offset,
       });
+      const totalPages = Math.ceil(count / pageSize);
+      return {
+        pageNumber,
+        pageSize,
+        totalPages,
+        totalCount: count,
+        requests: rows,
+      };
     },
     requestById: async (parent, args, context) => {
       return await context.databaseGraphQL.getRequestId(args.id);

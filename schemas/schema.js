@@ -105,6 +105,15 @@ const typeDefs = gql`
     phoneNumber: String
     requests: [Request]
   }
+
+  type PaginatedRequests {
+    pageNumber: Int!
+    pageSize: Int!
+    totalPages: Int!
+    totalCount: Int!
+    requests: [Request!]!
+  }
+
   #Query
   type Query {
     # department(id: ID!): Department
@@ -114,7 +123,7 @@ const typeDefs = gql`
     partialDays: [PartialDay!]!
     partialDayId(id: Int!): PartialDay
     #resquest
-    requests(pageSize: Int, pageNumber: Int): [Request!]!
+    requests: [Request!]!
     requestById(id: ID!): Request
     #requestReasons
     requestReasons: [RequestReason!]!
@@ -131,6 +140,8 @@ const typeDefs = gql`
     # User
     users: [User!]!
     userId(id: ID!): User
+    #Phân trang
+    paginatedRequests(pageNumber: Int!, pageSize: Int!): PaginatedRequests!
   }
 
   #Mutation

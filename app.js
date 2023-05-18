@@ -40,7 +40,8 @@ async function startServer() {
   server.applyMiddleware({ app });
 }
 startServer();
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const port = 5000;
 app.listen(port, () => {
   console.log(`Server ready at http://localhost:5000${server.graphqlPath}`);
