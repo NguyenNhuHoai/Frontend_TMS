@@ -1,5 +1,6 @@
 const { gql } = require("apollo-server-express");
 const DateType = require("./DataTypeSchema");
+
 const typeDefs = gql`
   scalar Date
   # Department Query
@@ -67,6 +68,10 @@ const typeDefs = gql`
     requestReasons: [RequestReason]
   }
 
+  input RequestTypeFilterInput {
+    ids: [ID!]
+  }
+
   #Specification
   type Specification {
     id: ID!
@@ -87,6 +92,11 @@ const typeDefs = gql`
     updatedDate: Date
     displayOrder: Int!
   }
+
+  input StatusFilterInput {
+    ids: [ID!]
+  }
+
   # User
   type User {
     id: ID!
@@ -130,7 +140,7 @@ const typeDefs = gql`
     requestReasonId(id: ID!): RequestReason
     #RequestType
     requestTypes: [RequestType!]!
-    requestTypeId(id: ID!): RequestType
+    # requestTypeId(id: ID!): RequestType
     #Specification
     specifications: [Specification!]!
     specificationId(id: ID!): Specification
@@ -142,8 +152,11 @@ const typeDefs = gql`
     userId(id: ID!): User
     #Phân trang
     paginatedRequests(pageNumber: Int!, pageSize: Int!): PaginatedRequests!
-  }
 
+    statuses(filter: StatusFilterInput): [Status]
+
+    requestTypeId(filter: StatusFilterInput): [RequestType]
+  }
   #Mutation
   type Mutation {
     #createDepartment

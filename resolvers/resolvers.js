@@ -48,8 +48,19 @@ const resolvers = {
     requestTypes: async (parent, args, context) => {
       return await context.databaseGraphQL.getAllRequestTypes();
     },
-    requestTypeId: async (parent, args, context) => {
-      return await context.databaseGraphQL.getRequestTypeId(args.id);
+    // requestTypeId: async (parent, args, context) => {
+    //   return await context.databaseGraphQL.getRequestTypeId(args.id);
+    // },
+    requestTypeId: async (_, { filter }) => {
+      const { ids } = filter;
+      try {
+        const requestType = await models.RequestType.findAll({
+          where: { id: ids },
+        });
+        return requestType;
+      } catch (error) {
+        throw new Error("Error retrieving statuses by multiple IDs");
+      }
     },
     // specifications
     specifications: async (parent, args, context) => {
@@ -62,8 +73,15 @@ const resolvers = {
     status: async (parent, args, context) => {
       return await context.databaseGraphQL.getAllStatus();
     },
-    statusId: async (parent, args, context) => {
-      return await context.databaseGraphQL.getStatusId(args.id);
+
+    statuses: async (_, { filter }) => {
+      const { ids } = filter;
+      try {
+        const statuses = await models.Status.findAll({ where: { id: ids } });
+        return statuses;
+      } catch (error) {
+        throw new Error("Error retrieving statuses by multiple IDs");
+      }
     },
     // User
     users: async (parent, args, context) => {

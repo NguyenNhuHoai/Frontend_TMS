@@ -24,7 +24,6 @@ const databaseGraphQL = {
   getSpecificationId: async (id) => await models.Specification.findByPk(id),
   // <------Status----------->
   getAllStatus: async () => await models.Status.findAll(),
-  getStatusId: async (id) => await models.Status.findByPk(id),
   // <------User----------->
   getAllUser: async () => await models.User.findAll(),
   getUserId: async (id) => await models.User.findByPk(id),
