@@ -48,10 +48,11 @@ const resolvers = {
     requestTypes: async (parent, args, context) => {
       return await context.databaseGraphQL.getAllRequestTypes();
     },
-    // requestTypeId: async (parent, args, context) => {
-    //   return await context.databaseGraphQL.getRequestTypeId(args.id);
-    // },
-    requestTypeId: async (_, { filter }) => {
+    requestTypeId: async (parent, args, context) => {
+      return await context.databaseGraphQL.getRequestTypeId(args.id);
+    },
+
+    requestTypeIds: async (_, { filter }) => {
       const { ids } = filter;
       try {
         const requestType = await models.RequestType.findAll({
@@ -73,7 +74,9 @@ const resolvers = {
     status: async (parent, args, context) => {
       return await context.databaseGraphQL.getAllStatus();
     },
-
+    statusId: async (parent, args, context) => {
+      return await context.databaseGraphQL.getStatusId(args.id);
+    },
     statuses: async (_, { filter }) => {
       const { ids } = filter;
       try {

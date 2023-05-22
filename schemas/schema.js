@@ -140,7 +140,7 @@ const typeDefs = gql`
     requestReasonId(id: ID!): RequestReason
     #RequestType
     requestTypes: [RequestType!]!
-    # requestTypeId(id: ID!): RequestType
+    requestTypeId(id: ID!): RequestType
     #Specification
     specifications: [Specification!]!
     specificationId(id: ID!): Specification
@@ -155,7 +155,7 @@ const typeDefs = gql`
 
     statuses(filter: StatusFilterInput): [Status]
 
-    requestTypeId(filter: StatusFilterInput): [RequestType]
+    requestTypeIds(filter: StatusFilterInput): [RequestType]
   }
   #Mutation
   type Mutation {
