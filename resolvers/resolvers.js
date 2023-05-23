@@ -19,12 +19,31 @@ const resolvers = {
     requests: async (parent, args, context) => {
       return await context.databaseGraphQL.getAllRequests();
     },
-    paginatedRequests: async (_, { pageNumber, pageSize }) => {
+    paginatedRequests: async (
+      _,
+      { pageNumber, pageSize, idStatus, idRequestType, startDate, endDate }
+    ) => {
       const offset = (pageNumber - 1) * pageSize;
+      let whereCondition = {};
+
+      if (idRequestType) {
+        whereCondition.requestTypeId = idRequestType;
+      }
+      if (idStatus) {
+        whereCondition.statusId = idStatus;
+      }
+      if (startDate) {
+        whereCondition.startDate = startDate;
+      }
+      if (endDate) {
+        whereCondition.endDate = endDate;
+      }
       const { count, rows } = await models.Request.findAndCountAll({
+        where: whereCondition,
         limit: pageSize,
         offset,
       });
+
       const totalPages = Math.ceil(count / pageSize);
       return {
         pageNumber,
@@ -32,6 +51,7 @@ const resolvers = {
         totalPages,
         totalCount: count,
         requests: rows,
+        idStatus,
       };
     },
     requestById: async (parent, args, context) => {

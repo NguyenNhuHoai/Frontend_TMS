@@ -121,6 +121,10 @@ const typeDefs = gql`
     pageSize: Int!
     totalPages: Int!
     totalCount: Int!
+    idStatus: ID
+    idRequestType: ID
+    startDate: Date
+    endDate: Date
     requests: [Request!]!
   }
 
@@ -151,7 +155,14 @@ const typeDefs = gql`
     users: [User!]!
     userId(id: ID!): User
     #Phân trang
-    paginatedRequests(pageNumber: Int!, pageSize: Int!): PaginatedRequests!
+    paginatedRequests(
+      pageNumber: Int!
+      pageSize: Int!
+      idStatus: ID
+      idRequestType: ID
+      startDate: Date
+      endDate: Date
+    ): PaginatedRequests!
 
     statuses(filter: StatusFilterInput): [Status]
 
