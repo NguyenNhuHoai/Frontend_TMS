@@ -121,8 +121,8 @@ const typeDefs = gql`
     pageSize: Int!
     totalPages: Int!
     totalCount: Int!
-    idStatus: ID
-    idRequestType: ID
+    idStatus: [ID]
+    idRequestType: [ID]
     startDate: Date
     endDate: Date
     requests: [Request!]!
@@ -158,8 +158,8 @@ const typeDefs = gql`
     paginatedRequests(
       pageNumber: Int!
       pageSize: Int!
-      idStatus: ID
-      idRequestType: ID
+      idStatus: [ID]
+      idRequestType: [ID]
       startDate: Date
       endDate: Date
     ): PaginatedRequests!
