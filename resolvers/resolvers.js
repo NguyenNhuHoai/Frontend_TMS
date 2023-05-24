@@ -27,7 +27,7 @@ const resolvers = {
       const arrIdStatus = idStatus.split(",");
 
       const arrRequestType = idRequestType.split(",");
-      console.log(idRequestType);
+
       let whereCondition = {};
       if (idRequestType) {
         whereCondition: {
@@ -60,6 +60,7 @@ const resolvers = {
         totalCount: count,
         requests: rows,
         idStatus,
+        idRequestType,
       };
     },
     requestById: async (parent, args, context) => {
