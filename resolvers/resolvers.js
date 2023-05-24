@@ -24,13 +24,20 @@ const resolvers = {
       { pageNumber, pageSize, idStatus, idRequestType, startDate, endDate }
     ) => {
       const offset = (pageNumber - 1) * pageSize;
-      let whereCondition = {};
+      const arrIdStatus = idStatus.split(",");
 
+      const arrRequestType = idRequestType.split(",");
+      console.log(idRequestType);
+      let whereCondition = {};
       if (idRequestType) {
-        whereCondition.requestTypeId = idRequestType;
+        whereCondition: {
+          requestTypeId: arrRequestType;
+        }
       }
       if (idStatus) {
-        whereCondition.statusId = idStatus;
+        whereCondition: {
+          statusId: arrIdStatus;
+        }
       }
       if (startDate) {
         whereCondition.startDate = startDate;
@@ -45,6 +52,7 @@ const resolvers = {
       });
 
       const totalPages = Math.ceil(count / pageSize);
+
       return {
         pageNumber,
         pageSize,
