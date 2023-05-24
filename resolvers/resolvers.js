@@ -1,3 +1,4 @@
+const { where, Op } = require("sequelize");
 const models = require("../models/models");
 const resolvers = {
   Query: {
@@ -19,32 +20,37 @@ const resolvers = {
     requests: async (parent, args, context) => {
       return await context.databaseGraphQL.getAllRequests();
     },
+
     paginatedRequests: async (
       _,
       { pageNumber, pageSize, idStatus, idRequestType, startDate, endDate }
     ) => {
       const offset = (pageNumber - 1) * pageSize;
-      const arrIdStatus = idStatus.split(",");
 
-      const arrRequestType = idRequestType.split(",");
+      let whereCondition = {}; // Khởi tạo đối tượng whereCondition trống
 
-      let whereCondition = {};
       if (idRequestType) {
-        whereCondition: {
-          requestTypeId: arrRequestType;
-        }
+        const arrRequestType = idRequestType.split(",");
+        whereCondition.requestTypeId = {
+          [Op.in]: arrRequestType,
+        };
       }
+
       if (idStatus) {
-        whereCondition: {
-          statusId: arrIdStatus;
-        }
+        const arrIdStatus = idStatus.split(",");
+        whereCondition.statusId = {
+          [Op.in]: arrIdStatus,
+        };
       }
+
       if (startDate) {
         whereCondition.startDate = startDate;
       }
+
       if (endDate) {
         whereCondition.endDate = endDate;
       }
+
       const { count, rows } = await models.Request.findAndCountAll({
         where: whereCondition,
         limit: pageSize,
@@ -63,6 +69,7 @@ const resolvers = {
         idRequestType,
       };
     },
+
     requestById: async (parent, args, context) => {
       return await context.databaseGraphQL.getRequestId(args.id);
     },
