@@ -43,12 +43,18 @@ const resolvers = {
         };
       }
 
-      if (startDate) {
-        whereCondition.startDate = startDate;
-      }
+      // if (startDate) {
+      //   whereCondition.startDate = {
+      //     [Op.in]: startDate,
+      //   };
+      // }
 
-      if (endDate) {
-        whereCondition.endDate = endDate;
+      // if (endDate) {
+      //   whereCondition.endDate = endDate;
+      // }
+
+      if (startDate && endDate) {
+        whereCondition.startDate = { [Op.between]: [startDate, endDate] };
       }
 
       const { count, rows } = await models.Request.findAndCountAll({
@@ -67,6 +73,8 @@ const resolvers = {
         requests: rows,
         idStatus,
         idRequestType,
+        startDate,
+        endDate,
       };
     },
 

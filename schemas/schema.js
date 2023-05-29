@@ -26,14 +26,14 @@ const typeDefs = gql`
 
   type Request {
     id: ID!
-    userId: User!
-    requestType: RequestType!
-    requestReason: RequestReason!
-    partialDay: PartialDay!
-    status: Status!
-    supervisor: User!
-    approver: User!
-    informTo: User!
+    userId: User
+    requestType: RequestType
+    requestReason: RequestReason
+    partialDay: PartialDay
+    status: Status
+    supervisor: User
+    approver: User
+    informTo: User
     detailReason: String
     comment: String
     createdBy: String!
@@ -100,18 +100,18 @@ const typeDefs = gql`
   # User
   type User {
     id: ID!
-    department: Department!
-    specification: Specification!
+    department: Department
+    specification: Specification
     supervisor: ID
     userCode: String
-    email: String!
+    email: String
     userName: String
     address: String
     createdBy: Date!
     updatedBy: Date!
     createdDate: Date
     updatedDate: Date
-    birthday: Date!
+    birthday: Date
     phoneNumber: String
     requests: [Request]
   }
@@ -178,64 +178,64 @@ const typeDefs = gql`
     ): Department!
     #  createPartialDay(input: PartialDayInput!): PartialDay!
     createRequest(
-      userId: ID!
-      requestTypeId: ID!
-      requestReasonId: ID!
-      partialDayId: Int!
-      statusId: ID!
-      supervisor: ID!
-      approver: ID!
+      userId: ID
+      requestTypeId: ID
+      requestReasonId: ID
+      partialDayId: Int
+      statusId: ID
+      supervisor: ID
+      approver: ID
       informTo: ID
       detailReason: String
       comment: String
-      createdBy: String!
-      updatedBy: String!
-      expectedDate: Date!
-      startDate: Date!
-      endDate: Date!
+      createdBy: String
+      updatedBy: String
+      expectedDate: Date
+      startDate: Date
+      endDate: Date
       createdDate: Date
       updatedDate: Date
     ): Request
 
     createRequestReason(
-      requestTypeId: ID!
-      name: String!
-      createdBy: String!
-      updatedBy: String!
+      requestTypeId: ID
+      name: String
+      createdBy: String
+      updatedBy: String
     ): RequestReason
 
     createRequestType(
-      name: String!
+      name: String
       description: String
-      createdBy: String!
-      updatedBy: String!
+      createdBy: String
+      updatedBy: String
     ): RequestType
 
     createSpecification(
-      name: String!
-      createdBy: String!
-      updatedBy: String!
+      name: String
+      createdBy: String
+      updatedBy: String
     ): Specification
 
     createStatus(
-      name: String!
-      createdBy: String!
-      updatedBy: String!
-      displayOrder: Int!
+      name: String
+      createdBy: String
+      updatedBy: String
+      displayOrder: Int
     ): Status
 
     createUser(
-      departmentId: ID!
-      specificationId: ID!
-      supervisor: ID!
-      userCode: String!
-      email: String!
-      userName: String!
-      address: String!
-      createdBy: String!
-      updatedBy: String!
-      birthday: Date!
-      phoneNumber: String!
+      departmentId: ID
+      specificationId: ID
+      supervisor: ID
+      userCode: String
+      email: String
+      userName: String
+      address: String
+      createdBy: String
+      updatedBy: String
+      birthday: Date
+      phoneNumber: String
     ): User
 
     #Delete
