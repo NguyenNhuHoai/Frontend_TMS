@@ -8,6 +8,7 @@ const { ApolloServer } = require("apollo-server-express");
 const databaseGraphQL = require("./data/database");
 
 const app = express();
+
 app.use(bodyParser.json());
 
 sequelize
