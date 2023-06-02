@@ -13,7 +13,7 @@ const requestModel = (sequelize) => {
       },
       userId: {
         type: Sequelize.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "User",
           key: "id",
@@ -45,7 +45,7 @@ const requestModel = (sequelize) => {
       },
       statusId: {
         type: Sequelize.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "Status",
           key: "id",
@@ -73,11 +73,11 @@ const requestModel = (sequelize) => {
       },
       createdBy: {
         type: Sequelize.STRING(100),
-        allowNull: false,
+        allowNull: true,
       },
       updatedBy: {
         type: Sequelize.STRING(100),
-        allowNull: false,
+        allowNull: true,
       },
       expectedDate: {
         type: Sequelize.DATE,

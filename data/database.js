@@ -304,6 +304,11 @@ const databaseGraphQL = {
       });
     });
   },
+  cancelRequest: async (_, { id, statusId, comment }) => {
+    await models.Request.update({ statusId, comment }, { where: { id } });
+    const cancel = await models.Request.findByPk(id);
+    return cancel;
+  },
   updateDepartment: async (_, { id, name, updatedBy }) => {
     await models.Department.update({ name, updatedBy }, { where: { id } });
     const department = await models.Department.findByPk(id);

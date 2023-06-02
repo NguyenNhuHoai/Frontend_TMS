@@ -43,16 +43,6 @@ const resolvers = {
         };
       }
 
-      // if (startDate) {
-      //   whereCondition.startDate = {
-      //     [Op.in]: startDate,
-      //   };
-      // }
-
-      // if (endDate) {
-      //   whereCondition.endDate = endDate;
-      // }
-
       if (startDate && endDate) {
         whereCondition.startDate = { [Op.between]: [startDate, endDate] };
       }
@@ -94,6 +84,14 @@ const resolvers = {
     },
     requestTypeId: async (parent, args, context) => {
       return await context.databaseGraphQL.getRequestTypeId(args.id);
+    },
+
+    getRequestReasonByRequestType: async (parent, args, context) => {
+      return await models.RequestReason.findAll({
+        where: {
+          requestTypeId: args.id,
+        },
+      });
     },
 
     requestTypeIds: async (_, { filter }) => {
@@ -229,9 +227,6 @@ const resolvers = {
         updatedBy,
       });
     },
-    // createPartialDay: (parent, args) => {
-    //   return models.PartialDay.create(args.input);
-    // },
     createRequest: async (
       _,
       {
@@ -254,18 +249,18 @@ const resolvers = {
       context
     ) => {
       return await context.databaseGraphQL.createRequest(_, {
-        userId,
+        userId: "014e3d05-ad24-4ecd-ac98-3dc5ef185b9e",
         requestTypeId,
         requestReasonId,
         partialDayId,
-        statusId,
+        statusId: "a32694ea-ddbc-4bd8-a06d-74f22e49e808",
         supervisor,
         approver,
         informTo,
         detailReason,
         comment,
-        createdBy,
-        updatedBy,
+        createdBy: "06b2dc39-e1b2-4bdf-b4f7-3c5d03164e48",
+        updatedBy: "5c151732-1db4-41f2-9a82-10721a041a18",
         expectedDate,
         startDate,
         endDate,
@@ -415,10 +410,17 @@ const resolvers = {
         informTo,
         detailReason,
         comment,
-        updatedBy,
+        updatedBy: "0031a8e3-3d17-4892-b41b-056ed10fd932",
         expectedDate,
         startDate,
         endDate,
+      });
+    },
+    cancelRequest: async (_, { id, statusId, comment }, context) => {
+      return await context.databaseGraphQL.cancelRequest(_, {
+        id,
+        statusId: "bf1f99f3-c5c1-4ce7-8441-46fcc63cc8ca",
+        comment,
       });
     },
     updateRequestReason: async (
@@ -456,7 +458,7 @@ const resolvers = {
       return await context.databaseGraphQL.updateStatus(_, {
         id,
         name,
-        updatedBy,
+        updatedBy: "014e3d05-ad24-4ecd-ac98-3dc5ef185b9e",
       });
     },
     updateUser: async (

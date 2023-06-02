@@ -36,14 +36,15 @@ const typeDefs = gql`
     informTo: User
     detailReason: String
     comment: String
-    createdBy: String!
-    updatedBy: String!
-    expectedDate: String!
-    startDate: Date!
-    endDate: Date!
-    createdDate: Date!
-    updatedDate: Date!
+    createdBy: String
+    updatedBy: String
+    expectedDate: String
+    startDate: Date
+    endDate: Date
+    createdDate: Date
+    updatedDate: Date
   }
+
   #RequestReason
   type RequestReason {
     id: ID!
@@ -55,7 +56,11 @@ const typeDefs = gql`
     updatedDate: Date!
     requests: [Request]
   }
-
+  type cancelRequest {
+    id: ID!
+    statusId: ID
+    comment: String
+  }
   #RequestType
   type RequestType {
     id: ID!
@@ -84,13 +89,13 @@ const typeDefs = gql`
   }
   #Status
   type Status {
-    id: ID!
-    name: String!
-    createdBy: String!
-    updatedBy: String!
+    id: ID
+    name: String
+    createdBy: String
+    updatedBy: String
     createdDate: Date
     updatedDate: Date
-    displayOrder: Int!
+    displayOrder: Int
   }
 
   input StatusFilterInput {
@@ -99,7 +104,7 @@ const typeDefs = gql`
 
   # User
   type User {
-    id: ID!
+    id: ID
     department: Department
     specification: Specification
     supervisor: ID
@@ -126,6 +131,17 @@ const typeDefs = gql`
     startDate: Date
     endDate: Date
     requests: [Request!]!
+  }
+
+  type GetRequestReasonByRequestType {
+    id: ID!
+    name: String!
+    description: String
+    createdBy: String!
+    updatedBy: String!
+    createdDate: Date!
+    updatedDate: Date!
+    requestReasons: [RequestReason]
   }
 
   #Query
@@ -167,6 +183,8 @@ const typeDefs = gql`
     statuses(filter: StatusFilterInput): [Status]
 
     requestTypeIds(filter: StatusFilterInput): [RequestType]
+
+    getRequestReasonByRequestType(id: ID): [RequestReason]
   }
   #Mutation
   type Mutation {
@@ -196,6 +214,8 @@ const typeDefs = gql`
       createdDate: Date
       updatedDate: Date
     ): Request
+
+    cancelRequest(id: ID, statusId: ID, comment: String): Request
 
     createRequestReason(
       requestTypeId: ID
@@ -263,7 +283,7 @@ const typeDefs = gql`
       informTo: ID
       detailReason: String
       comment: String
-      updatedBy: String!
+      updatedBy: String
       expectedDate: Date
       startDate: Date
       endDate: Date
@@ -284,7 +304,7 @@ const typeDefs = gql`
     ): RequestType
 
     updateSpecification(id: ID!, name: String, updatedBy: String): Specification
-    updateStatus(id: ID!, name: String, updatedBy: String!): Status
+    updateStatus(id: ID!, name: String, updatedBy: String): Status
     updateUser(
       id: ID!
       departmentId: ID
